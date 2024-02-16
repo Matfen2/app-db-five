@@ -1,0 +1,39 @@
+<div class="container">
+  <h2 class="text-center">CONNECTION :</h2>
+  <form [formGroup]="connectForm" (ngSubmit)="connect()">
+    <div class="row" style="width: 600px; margin: auto;">
+      <div class="col-lg-6">
+        <div class="mb-3">
+          <input type="email" name="adress" id="adress" class="form-control" formControlName="adress"
+            placeholder="Adresse email">
+          <div class="alert alert-danger" style="height: 60px"
+            *ngIf="connectForm.get('adress')?.hasError('required') && connectForm.get('adress')?.touched">
+            <p>Adresse email est requise</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="mb-3">
+          <input type="password" name="pass" id="pass" class="form-control" formControlName="pass"
+            placeholder="Mot de Passe">
+          <div class="alert alert-danger" style="height: 60px"
+            *ngIf="connectForm.get('pass')?.hasError('required') && connectForm.get('pass')?.touched">
+            <p>Mot de passe est requis</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center gap-3">
+      <button type="submit" id="btnConnect" class="btn btn-primary">SE CONNECTER</button>
+      <button type="button" id="btnSignUp" class="btn btn-secondary" [routerLink]="'/register'">INCRIVEZ-VOUS</button>
+    </div>
+  </form>
+
+  <div class="alert alert-success" *ngIf="successConnect">
+    <p>Connection réussie</p>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorConnect">
+    <p>Echec de la connection</p>
+  </div>
+</div>

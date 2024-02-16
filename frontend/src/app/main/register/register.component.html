@@ -1,0 +1,58 @@
+<div class="container">
+  <h2 class="text-center">INSCRIPTION :</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <div class="row" style="width: 600px; margin: auto;">
+      <div class="col-lg-6">
+        <div class="mb-3">
+          <input type="text" name="pseudo" id="pseudo" class="form-control" formControlName="pseudo"
+            placeholder="Nom d'utilisateur">
+          <div class="alert alert-danger" style="height: 60px"
+            *ngIf="registerForm.get('pseudo')?.hasError('required') && registerForm.get('pseudo')?.touched">
+            <p>Nom d'utilisateur est requis</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="mb-3">
+          <input type="email" name="adress" id="adress" class="form-control" formControlName="adress"
+            placeholder="Adresse email">
+          <div class="alert alert-danger" style="height: 60px"
+            *ngIf="registerForm.get('adress')?.hasError('required') && registerForm.get('adress')?.touched">
+            <p>Adresse email est requise</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="mb-3">
+          <input type="text" name="phone" id="phone" class="form-control" formControlName="phone"
+            placeholder="Numéro de téléphone">
+          <div class="alert alert-danger" style="height: 60px"
+            *ngIf="registerForm.get('phone')?.hasError('required') && registerForm.get('phone')?.touched">
+            <p>Numéro de téléphone est requis</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="mb-3">
+          <input type="password" name="pass" id="pass" class="form-control" formControlName="pass"
+            placeholder="Mot de Passe">
+          <div class="alert alert-danger" style="height: 60px"
+            *ngIf="registerForm.get('pass')?.hasError('required') && registerForm.get('pass')?.touched">
+            <p>Mot de passe est requis</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center gap-3">
+      <button type="submit" id="btnRegister" class="btn btn-primary">S'INSCRIRE</button>
+      <button type="button" id="btnSignIn" class="btn btn-secondary" [routerLink]="'/connect'">SE CONNECTER</button>
+    </div>
+  </form>
+  <div class="alert alert-success" style="width: 600px;" *ngIf="successRegister">
+    <p>Enregistrement réussie</p>
+  </div>
+
+  <div class="alert alert-danger" style="width: 600px;" *ngIf="errorRegister">
+    <p>Echec de l'enregistrement</p>
+  </div>
+</div>
