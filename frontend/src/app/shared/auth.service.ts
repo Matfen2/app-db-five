@@ -9,7 +9,7 @@ export class AuthService {
 
   constructor(private _http: HttpClient) { }
 
-  apiUrl = "https://app-db-four-a63f7db9d165.herokuapp.com";
+  apiUrl = "http://localhost:3000";
 
   connectMember(adress: string, pass: string): Observable<any> {
     console.log(this.apiUrl);

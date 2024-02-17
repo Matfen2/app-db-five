@@ -22,20 +22,16 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    if (this.registerForm.valid) {
       const { pseudo, adress, phone, pass } = this.registerForm.value;
-      this.authService.registerMember(pseudo, adress, phone, pass).subscribe(
-        () => {
-          this.successRegister = true;
-          this.errorRegister = false;
-          this.registerForm.reset();
-        },
-        (error) => {
-          this.successRegister = false;
-          this.errorRegister = true;
-        }
-      );
-    }
+      this.authService.registerMember(pseudo, adress, phone, pass).subscribe(() => {
+
+        this.successRegister = true;
+        this.registerForm.reset();
+      }, (error) => {
+        this.successRegister = false;
+        this.errorRegister = true;
+      }
+    );
   }
 
   ngOnInit(): void {
