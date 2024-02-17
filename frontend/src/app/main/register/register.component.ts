@@ -15,24 +15,26 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService, private fb: FormBuilder) {
     this.registerForm = this.fb.group({
       pseudo: ['', [Validators.required]],
-      adress: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required]],
-      pass: ['', [Validators.required]]
+      adress: ['', [Validators.required, Validators.email, Validators.pattern('[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$')]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      pass: ['', [Validators.required, Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]]
     });
   }
 
   register() {
     if (this.registerForm.valid) {
       const { pseudo, adress, phone, pass } = this.registerForm.value;
-      this.authService.registerMember(pseudo, adress, phone, pass).subscribe(() => {
-        if (this.registerForm.valid) {
-        this.successRegister = true;
-        this.registerForm.reset();
-      } else {
-        this.successRegister = false;
-        this.errorRegister = true;
-      }
-      });
+      this.authService.registerMember(pseudo, adress, phone, pass).subscribe(
+        () => {
+          this.successRegister = true;
+          this.errorRegister = false;
+          this.registerForm.reset();
+        },
+        (error) => {
+          this.successRegister = false;
+          this.errorRegister = true;
+        }
+      );
     }
   }
 

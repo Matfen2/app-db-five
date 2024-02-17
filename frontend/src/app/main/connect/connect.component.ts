@@ -15,23 +15,24 @@ export class ConnectComponent implements OnInit {
 
   constructor(private authService: AuthService, private fb: FormBuilder) {
     this.connectForm = this.fb.group({
-      adress: ['', [Validators.required, Validators.email]],
-      pass: ['', [Validators.required]],
+      adress: ['', [Validators.required, Validators.email, Validators.pattern('[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$')]],
+      pass: ['', [Validators.required, Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]],
     });
   }
 
   connect() {
-    const { adress, pass } = this.connectForm.value; // Utilisation des valeurs du formulaire
-    this.authService.connectMember(adress, pass).subscribe(() => {
-      if (this.connectForm.valid) {
-        this.successConnect = true;
-        this.connectForm.reset();
-      } else {
-        this.successConnect = false;
-        this.errorConnect = true;
-      }
-    });
-  }
+  const { adress, pass } = this.connectForm.value;
+  this.authService.connectMember(adress, pass).subscribe(
+    () => {
+      this.successConnect = true;
+      this.connectForm.reset();
+    },
+    (error) => {
+      this.successConnect = false;
+      this.errorConnect = true;
+    }
+  );
+}
 
   ngOnInit(): void {
   }
